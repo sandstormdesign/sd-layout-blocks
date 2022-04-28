@@ -1,0 +1,90 @@
+<?php
+
+function sd_layout_blocks_theme($existing, $type, $theme, $path) {
+  return Array(
+    'sd_wysiwyg_block' => Array(
+      'variables' => Array(
+        'content' => NULL
+      )
+    ),
+    'sd_large_teaser_block' => Array(
+      'variables' => Array(
+        'title' => NULL,
+        'content' => NULL,
+        'link' => NULL,
+        'image' => NULL,
+        'overlay_color' => NULL,
+        'heading_level' => NULL
+      )
+    ),
+    'sd_content_block' => Array(
+      'variables' => Array(
+        'content' => NULL
+      )
+    )
+  );
+}
+
+function sd_layout_blocks_preprocess_block(&$variables) {
+  $configuration = &$variables['elements']['#configuration'];
+  $plugin_id = $variables['elements']['#plugin_id'];
+  $base_plugin_id = $variables['elements']['#base_plugin_id'];
+  $derivative_plugin_id = $variables['elements']['#derivative_plugin_id'];
+  $label = !empty($variables['configuration']['label_display']) ? $variables['configuration']['label'] : '';
+  $content = $variables['elements']['content'];
+  $sd_blocks = ['sd_wysiwyg_block'];
+
+  if(in_array($base_plugin_id, $sd_blocks)) {
+    $variables['heading_level'] = $configuration['heading_level'];
+  }
+}
+
+function sd_layout_blocks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // kint($form);
+  if (isset($form['settings']['sd_layout_hide_title']) && $form['settings']['sd_layout_hide_title']['#value']){
+    $label_display = &$form['settings']['label_display'];
+    $label_display['#type'] = 'hidden';
+    $label_display['#value'] = false;
+    $label_display['#default_value'] = false;
+  }
+}
+
+function _sd_layout_blocks_get_contrast_color($hexColor) {
+  if ($hexColor[0] !== '#') {
+    $hexColor = '#'.$hexColor;
+  }
+  // hexColor RGB
+  $R1 = hexdec(substr($hexColor, 1, 2));
+  $G1 = hexdec(substr($hexColor, 3, 2));
+  $B1 = hexdec(substr($hexColor, 5, 2));
+
+  // Black RGB
+  $blackColor = "#000";
+  $R2BlackColor = hexdec(substr($blackColor, 1, 2));
+  $G2BlackColor = hexdec(substr($blackColor, 3, 2));
+  $B2BlackColor = hexdec(substr($blackColor, 5, 2));
+
+   // Calc contrast ratio
+   $L1 = 0.2126 * pow($R1 / 255, 2.2) +
+    0.7152 * pow($G1 / 255, 2.2) +
+    0.0722 * pow($B1 / 255, 2.2);
+
+  $L2 = 0.2126 * pow($R2BlackColor / 255, 2.2) +
+    0.7152 * pow($G2BlackColor / 255, 2.2) +
+    0.0722 * pow($B2BlackColor / 255, 2.2);
+
+  $contrastRatio = 0;
+  if ($L1 > $L2) {
+      $contrastRatio = (int)(($L1 + 0.05) / ($L2 + 0.05));
+  } else {
+      $contrastRatio = (int)(($L2 + 0.05) / ($L1 + 0.05));
+  }
+
+  // If contrast is more than 5, return black color
+  if ($contrastRatio > 5) {
+      return '#000';
+  } else {
+      // if not, return white color.
+      return '#FFF';
+  }
+}

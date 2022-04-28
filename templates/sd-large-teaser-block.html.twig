@@ -1,0 +1,10 @@
+<div style="background: {{overlay_color}}">
+<div class="teaser-content">
+  <{{heading_level}} class="block-title">{{ title }}</{{heading_level}}>
+
+  {% if content %}{{ content }}{% endif %}
+  {% if link %}<p>{{ link }}</p>{% endif %}
+  <div class="teaser-background" style="background: {{overlay_color}}"></div>
+</div>
+{% if image %}{{ image }}{% endif %}
+</div>

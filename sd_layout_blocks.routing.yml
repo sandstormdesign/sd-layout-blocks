@@ -1,0 +1,8 @@
+sd_layout_blocks.settings:
+  path: '/admin/config/sd_layout_blocks/settings'
+  defaults:
+    _form: 'Drupal\sd_layout_blocks\Form\SdLayoutBlocksSettingsForm'
+    _title: 'Sandstorm Design Layout Blocks Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    _admin_route: 'TRUE'

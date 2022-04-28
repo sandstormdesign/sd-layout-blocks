@@ -1,0 +1,11 @@
+name: SD Layout Blocks
+type: module
+description: Library of re-usable content blocks for layout builder
+core_version_requirement: ^8 || ^9
+package: 'Sandstorm Design'
+dependencies:
+  - block
+  - node
+  - media_library_form_element
+  - color_field
+  - layout_builder
