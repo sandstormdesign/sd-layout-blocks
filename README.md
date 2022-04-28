@@ -1,6 +1,15 @@
 # SD Layout Blocks
 Sandstorm Design Layout Builder Blocks
 
+## Installation
+Add to a project as a git submodule:
+
+`git submodule add git@github.com:sandstormdesign/sd-layout-blocks.git ./data/main/web/modules/_custom/sd_layout_blocks`
+
+Update git submodules
+
+`git submodule init && git submodule update --recursive`
+
 ## Settings
 Visit /admin/config/sd_layout_blocks/settings
 
