@@ -100,19 +100,19 @@ class SdContentBlock extends SdLayoutBlock {
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
       '#tags' => TRUE,
+      '#default_value' => $content_node,
       '#size' => 30,
       '#maxlength' => 1024,
-      '#default_value' => $content_node,
-      '#ajax' => [
-        'callback' => [$this, 'contentChangeCallback'],
+      '#ajax' => array(
+        'callback' => array($this, 'contentChangeCallback'),
         'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
         'event' => 'change',
         'wrapper' => 'edit-view-mode', // This element is updated with this AJAX callback.
-        'progress' => [
+        'progress' => array(
           'type' => 'throbber',
           'message' => $this->t('Updating view mode options...'),
-        ],
-      ]
+        ),
+      )
     );
 
     $this->contentFields($content_type, $form);
