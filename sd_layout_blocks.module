@@ -2,6 +2,12 @@
 
 function sd_layout_blocks_theme($existing, $type, $theme, $path) {
   return Array(
+    'sd_video_block' => Array(
+      'variables' => Array(
+        'video' => NULL
+      )
+    ),
+
     'sd_wysiwyg_block' => Array(
       'variables' => Array(
         'content' => NULL
