@@ -27,15 +27,15 @@ class SdVideoBlock extends SdLayoutBlock {
     $build = parent::build();
     $config = $this->getConfiguration();
 
+
     $video = null;
     $video_media_id = isset($config['video']) ? $config['video'] : NULL;
     $media = Media::load($video_media_id);
     $view_mode = isset($config['view_mode']) ? $config['view_mode'] : 'default';
+
     if ($media) {
       $video = \Drupal::entityTypeManager()->getViewBuilder('media')->view($media, $view_mode);
     }
-
-
 
     $build['#video'] = $video;
 
@@ -75,7 +75,7 @@ class SdVideoBlock extends SdLayoutBlock {
     }
 
 
-    $view_mode = isset($config['video']) ? $config['video'] : 'default';
+    $view_mode = isset($config['view_mode']) ? $config['view_mode'] : 'default';
     $form['block_content']['view_mode'] = Array(
       '#type' => 'select',
       '#title' => 'View Mode',
