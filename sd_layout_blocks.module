@@ -8,6 +8,12 @@ function sd_layout_blocks_theme($existing, $type, $theme, $path) {
       )
     ),
 
+    'sd_image_block' => Array(
+      'variables' => Array(
+        'image' => NULL
+      )
+    ),
+
     'sd_wysiwyg_block' => Array(
       'variables' => Array(
         'content' => NULL
